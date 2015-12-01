@@ -20,16 +20,53 @@
 
 namespace GitAspx.Controllers
 {
-    using System;
-    using System.IO;
-    using System.Linq;
-    using System.Threading;
     using System.Web.Mvc;
     using GitAspx.Lib;
     using GitAspx.ViewModels;
+    using System.Linq;
+    using System;
+    using StructureMap;
+    using System.Web;
+    using System.IO;
+    // using System.Configuration;
 
     public class DirectoryListController : Controller
     {
+        public static object Settings()
+        {
+            return AppSettings.FromAppConfig();
+        }
+
+        public static void RenderIndex()
+        {
+            Type controllerType = typeof(DirectoryListController);
+            var controller = ObjectFactory.GetInstance(controllerType) as DirectoryListController;
+            var repositories = controller.repositories;
+
+            HttpContext context = System.Web.HttpContext.Current;
+            try
+            {
+                var settings = RepositoryService.AppSettings;
+                var model = new DirectoryListViewModel
+                  {
+                      RepositoriesDirectory = repositories.GetRepositoriesDirectory().FullName,
+                      Repositories = repositories.GetAllRepositories().Select(x => new RepositoryViewModel(x))
+                  };
+                var view = controller.Index();
+
+                var baseCtx = context.Request.RequestContext.HttpContext as HttpContextBase;
+                var routeData = new System.Web.Routing.RouteData();
+                routeData.Values.Add("Action", "Index");
+                routeData.Values.Add("Controller", "DirectoryList");
+                var mvcCtx = new ControllerContext(baseCtx, routeData, controller);
+                view.ExecuteResult(mvcCtx);
+            }
+            catch (Exception ex)
+            {
+                context.Response.Write("<b>Error</b><br/> " + ex.ToString().Replace(Environment.NewLine, "<br/>"));
+            }
+        }
+
         readonly RepositoryService repositories;
 
         public DirectoryListController(RepositoryService repositories)

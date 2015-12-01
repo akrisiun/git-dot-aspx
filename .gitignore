@@ -10,3 +10,5 @@ _ReSharper*
 *.suo
 *.cache
 TestResult.xml
+packages/
+lib/System.Web.*.dll

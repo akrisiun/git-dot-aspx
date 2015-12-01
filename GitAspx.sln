@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Web Developer Express 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitAspx", "GitAspx\GitAspx.csproj", "{3A732219-72CE-49B8-84F6-FE74E3762EE7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitAspx.Tests", "GitAspx.Tests\GitAspx.Tests.csproj", "{A1C3A88B-8C35-4677-B83F-E61FEAAD604A}"

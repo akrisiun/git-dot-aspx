@@ -28,7 +28,17 @@ namespace GitAspx.Lib
 
     public class RepositoryService
     {
+        static RepositoryService()
+        {
+        }
+
         readonly AppSettings appSettings;
+        public static AppSettings AppSettings { get { return new RepositoryService().appSettings; } }
+
+        public RepositoryService()
+        {
+            appSettings = AppSettings.FromAppConfig();
+        }
 
         public int RepositoryLevel
         {
