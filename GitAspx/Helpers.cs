@@ -56,6 +56,14 @@ namespace GitAspx {
         #endregion
 
         #region Get Url
+
+        public static string ProjectUrl(this UrlHelper urlHelper, string project)
+        {
+            return urlHelper.RouteUrl("project", new RouteValueDictionary(new { project }),
+                                      urlHelper.RequestContext.HttpContext.Request.Url.Scheme,
+                                      urlHelper.RequestContext.HttpContext.Request.Url.Host);
+        }
+
         public static string GetGitUrl(this UrlHelper urlHelper, string project)
         {
             string[] lsaParts = project.Split('/');

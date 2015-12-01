@@ -1,7 +1,9 @@
 ﻿@model GitAspx.ViewModels.BlobViewModel
 @using GitAspx;
 @using GitAspx.Properties;
-@{ViewBag.Title = Model.Title;}
+@{
+    ViewBag.Title = Model.Title;
+}
 
 <div class="switchBar" style="position: absolute">
     <ul>
@@ -9,10 +11,6 @@
             <a href="javascript:void()">@Resources.Cultures (5)</a>
             <ul>
                 <li><a href="@Url.Content("~/settings/Culture/en-US")">English</a></li>
-                <li><a href="@Url.Content("~/settings/Culture/zh-TW")">繁體中文</a></li>
-                <li><a href="@Url.Content("~/settings/Culture/zh-CN")">简体中文</a></li>
-                <li><a href="@Url.Content("~/settings/Culture/ja-JP")">日本語</a></li>
-                <li><a href="@Url.Content("~/settings/Culture/de-DE")">Deutsch</a></li>
             </ul>
         </li>
     </ul>
@@ -20,22 +18,31 @@
 
 <div class="repositoryContainer">
     <h1>@Model.Project@Model.PathSegments.JoinLeft(" / ")</h1>
-    
+
     <div style="border: 1px solid black; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; overflow: auto">
         <table>
             <tr style="vertical-align: top">
                 <td style="font-weight: bold; background-color: white">
-                    @for (int lineNum = 1, maxLine = Model.File.Data.SplitLines().Count(); lineNum <= maxLine; lineNum++) {
+                    @for (int lineNum = 1, maxLine = Model.File.Data.SplitLines().Count();
+                        lineNum <= maxLine; lineNum++)
+                    {
                         <div>@lineNum</div>
                     }
                 </td>
                 <td style="width: 100%">
-                    @foreach (string line in Model.File.Data.SplitLines()) {
-                        if (line.Length == 0) {
+                    @foreach (string line in Model.File.Data.SplitLines())
+                    {
+                        if (line.Length == 0)
+                        {
                             <div>&nbsp;</div>
                         }
-                        else{
-                            <div style="width: 10000px">@(new MvcHtmlString(line.ToHtmlWithSpaces()))</div>
+                        else
+                        {
+                            <div style="width: 10000px">
+                            @(
+                                new MvcHtmlString(line.ToHtmlWithSpaces())
+                            )
+                            </div>
                         }
                     }
                 </td>

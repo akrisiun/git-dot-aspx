@@ -72,6 +72,10 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Web.Helpers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\System.Web.Mvc.dll</HintPath>
@@ -138,6 +142,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Start.cs" />
     <Compile Include="ViewModels\CatViewModel.cs" />
     <Compile Include="ViewModels\TreeViewModel.cs" />
     <Compile Include="ViewModels\DirectoryListViewModel.cs" />
@@ -254,6 +259,10 @@
     <ProjectReference Include="..\lib\NGit\Sharpen\Sharpen.csproj">
       <Project>{72944A6C-45FF-4EF8-B349-8C9CABF519D4}</Project>
       <Name>Sharpen</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MvcHttp\MvcHttp.csproj">
+      <Project>{319fb69f-6c2b-4697-8b53-1b48dc18ac32}</Project>
+      <Name>MvcHttp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

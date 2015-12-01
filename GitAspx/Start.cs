@@ -24,46 +24,113 @@ namespace GitAspx
 
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.IgnoreRoute("favicon.ico");
-
-            routes.MapRoute("DirectoryList", "", new { controller = "DirectoryList", action = "Index" });
-            routes.MapRoute("DirectoryListCreate", "Create", new { controller = "DirectoryList", action = "Create" });
-
-            routes.MapRoute("info-refs", "{project}/info/refs",
-                            new { controller = "InfoRefs", action = "Execute" },
-                            new { method = new HttpMethodConstraint("GET") });
-
-            routes.MapRoute("upload-pack", "{project}/git-upload-pack",
-                            new { controller = "Rpc", action = "UploadPack" },
-                            new { method = new HttpMethodConstraint("POST") });
-
-
-            routes.MapRoute("receive-pack", "{project}/git-receive-pack",
-                            new { controller = "Rpc", action = "ReceivePack" },
-                            new { method = new HttpMethodConstraint("POST") });
 
             // Dumb protocol
             //routes.MapRoute("info-refs-dumb", "dumb/{project}/info/refs", new {controller = "Dumb", action = "InfoRefs"});
-            routes.MapRoute("get-text-file", "{project}/HEAD", new { controller = "Dumb", action = "GetTextFile" });
-            routes.MapRoute("get-text-file2", "{project}/objects/info/alternates", new { controller = "Dumb", action = "GetTextFile" });
-            routes.MapRoute("get-text-file3", "{project}/objects/info/http-alternates", new { controller = "Dumb", action = "GetTextFile" });
 
-            routes.MapRoute("get-info-packs", "{project}/info/packs", new { controller = "Dumb", action = "GetInfoPacks" });
+            RouteTable.Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            RouteTable.Routes.IgnoreRoute("favicon.ico");
 
-            routes.MapRoute("get-text-file4", "{project}/objects/info/{something}", new { controller = "Dumb", action = "GetTextFile" });
+            MapSimpleRoute("settings", "settings/{key}/{value}", "WebBrowsingSettings", "Index");
 
-            routes.MapRoute("get-loose-object", "{project}/objects/{segment1}/{segment2}",
-                new { controller = "Dumb", action = "GetLooseObject" });
+            string lsPath = GetPathPattern();
+            string lsPathSlash = lsPath.Length > 0 ? lsPath + "/" : lsPath;
+            string lsCat = GetCatPattern();
+            string lsCatSlash = lsCat.Length > 0 ? lsCat + "/" : lsCat;
+            if (lsPath.Length > 0)
+            {
+                string[] lsaCat = lsCat.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+                if (lsaCat.Length >= 1)
+                {
+                    MapSimpleRoute("CatList1", "", "DirectoryList", "Cat");
+                    MapSimpleRoute("CatListCreate1", "create", "DirectoryList", "CreateCategory");
+                }
+                if (lsaCat.Length == 2)
+                {
+                    MapSimpleRoute("CatList2", lsaCat[0], "DirectoryList", "Cat");
+                    MapSimpleRoute("CatListCreate2", lsaCat[0] + "/create", "DirectoryList", "CreateCategory");
+                }
 
-            routes.MapRoute("get-pack-file", "{project}/objects/pack/pack-{filename}.pack",
-                new { controller = "Dumb", action = "GetPackFile" });
+                MapSimpleRoute("DirectoryList", lsCat, "DirectoryList", "Index");
+                MapSimpleRoute("DirectoryListCreate", lsCatSlash + "create", "DirectoryList", "CreateRepository");
+            }
 
-            routes.MapRoute("get-idx-file", "{project}/objects/pack/pack-{filename}.idx",
-                new { controller = "Dumb", action = "GetIdxFile" });
+            MapSimpleRouteGetOnly("info-refs", lsPath + "/info/refs", "InfoRefs", "Execute");
 
-            // routes.MapRoute("project", "{project}");
-            routes.MapRoute("project", "{project}", new { controller = "DotGit", action = "Index" });
+            MapSimpleRoutePostOnly("upload-pack", lsPath + "/git-upload-pack", "Rpc", "UploadPack");
+            MapSimpleRoutePostOnly("receive-pack", lsPath + "/git-receive-pack", "Rpc", "ReceivePack");
+
+            MapSimpleRoute("get-info-packs", lsPath + ".git/info/packs", "Dumb", "GetInfoPacks");
+            MapSimpleRoute("get-text-file", lsPath + ".git/HEAD", "Dumb", "GetHead");
+            MapSimpleRoute("get-text-file2", lsPath + ".git/objects/info/alternates", "Dumb", "GetAlternates");
+            MapSimpleRoute("get-text-file3", lsPath + ".git/objects/info/http-alternates", "Dumb", "GetHttpAlternates");
+            MapSimpleRoute("get-text-file4", lsPath + ".git/objects/info/{something}", "Dumb", "GetOtherInfo");
+            MapSimpleRoute("get-loose-object", lsPath + ".git/objects/{segment1}/{segment2}", "Dumb", "GetLooseObject");
+            MapSimpleRoute("get-pack-file", lsPath + ".git/objects/pack/pack-{filename}.pack", "Dumb", "GetPackFile");
+            MapSimpleRoute("get-idx-file", lsPath + ".git/objects/pack/pack-{filename}.idx", "Dumb", "GetIdxFile");
+
+            MapSimpleRoute("giturl", lsPath + ".git");
+
+            MapSimpleRoute("repo-home", lsPath, "TreeView", "Index");
+            MapSimpleRoute("tree-home", lsPathSlash + "tree", "TreeView", "Index");
+            MapSimpleRoute("tree-commit", lsPathSlash + "tree/{tree}", "TreeView", "Index");
+            MapSimpleRoute("tree", lsPathSlash + "tree/{tree}/{*path}", "TreeView", "Index");
+            MapSimpleRoute("blob", lsPathSlash + "blob/{tree}/{*path}", "BlobView", "Index");
+            MapSimpleRoute("download-commit", lsPathSlash + "download/{tree}", "DownloadView", "Index");
+            MapSimpleRoute("download", lsPathSlash + "download/{tree}/{*path}", "DownloadView", "Index");
+
+            routes.MapRoute("project", "{project}");
+            //routes.MapRoute("project", "{project}",
+            //    new { controller = "DotGit", action = "Index" });
+
+        }
+
+        static void MapSimpleRoute(string asName, string asUrl)
+        {
+            RouteTable.Routes.MapRoute(asName, asUrl);
+        }
+
+        static void MapSimpleRoute(string asName, string asUrl, string asController, string asAction)
+        {
+            RouteTable.Routes.MapRoute(asName, asUrl, new { controller = asController, action = asAction });
+        }
+
+        static void MapSimpleRouteGetOnly(string asName, string asUrl, string asController, string asAction)
+        {
+            RouteTable.Routes.MapRoute(asName, asUrl, new { controller = asController, action = asAction }, new { method = new HttpMethodConstraint("GET") });
+        }
+
+        static void MapSimpleRoutePostOnly(string asName, string asUrl, string asController, string asAction)
+        {
+            RouteTable.Routes.MapRoute(asName, asUrl, new { controller = asController, action = asAction }, new { method = new HttpMethodConstraint("POST") });
+        }
+
+        static string GetCatPattern()
+        {
+            int liLevel = AppSettings.FromAppConfig().RepositoryLevel;
+            if (liLevel == 0 || liLevel == 1)
+                return "";
+            else if (liLevel == 2)
+                return "{cat}";
+            else if (liLevel == 3)
+                return "{cat}/{subcat}";
+
+            throw new NotSupportedException(string.Format("RepositoryLevel {0} not supported", liLevel));
+        }
+
+        static string GetPathPattern()
+        {
+            int liLevel = AppSettings.FromAppConfig().RepositoryLevel;
+            if (liLevel == 0)
+                return "";
+            else if (liLevel == 1)
+                return "{project}";
+            else if (liLevel == 2)
+                return "{cat}/{project}";
+            else if (liLevel == 3)
+                return "{cat}/{subcat}/{project}";
+
+            throw new NotSupportedException(string.Format("RepositoryLevel {0} not supported", liLevel));
         }
 
         class AppRegistry : Registry

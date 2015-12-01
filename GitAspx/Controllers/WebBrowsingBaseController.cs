@@ -29,7 +29,8 @@ using GitSharp;
 
 namespace GitAspx.Controllers
 {
-    public class WebBrowsingBaseController<TModel> : Controller where TModel: WebBrowsingBaseViewModel, new()
+    public class WebBrowsingBaseController<TModel> : Controller
+        where TModel : WebBrowsingBaseViewModel, new()
     {
         readonly RepositoryService repositories;
         readonly TModel model;
@@ -47,7 +48,8 @@ namespace GitAspx.Controllers
             try
             {
                 model.WebBrowsingSettings = this.GetWebBrowsingSettings();
-                Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = model.WebBrowsingSettings.CultureObject;
+                Thread.CurrentThread.CurrentCulture =
+                    Thread.CurrentThread.CurrentUICulture = model.WebBrowsingSettings.CultureObject;
 
                 model.Title = project;
                 model.PathSegments = path.SplitSlashes_OrEmpty().ToArray();
@@ -79,14 +81,19 @@ namespace GitAspx.Controllers
                 }
 
                 model.Branches = model.Repository.Branches
-                    .Where(a => a.Value.CurrentCommit.Hash == loCommit.Hash || a.Value.CurrentCommit.Ancestors.Any(b => b.Hash == loCommit.Hash))
+                    .Where(a =>
+                        a.Value.CurrentCommit.Hash == loCommit.Hash
+                        || a.Value.CurrentCommit.Ancestors.Any(b => b.Hash == loCommit.Hash))
                     .Select(a => a.Value);
-                model.Tags = model.Repository.Tags.Where(a => a.Value.Target.Hash == loCommit.Hash).Select(a => a.Value);
+                model.Tags = model.Repository.Tags
+                    .Where(a => a.Value.Target.Hash == loCommit.Hash).Select(a => a.Value);
+
                 model.Commit = loCommit;
                 model.RootTree = loCommit.Tree;
                 model.TreeName = tree;
                 model.Title = model.PathSegments.Length == 0 ? string.Format("{0} at {1}", project, tree)
-                    : string.Format("{2} at {1} from {0}", project, tree, string.Join("/", model.PathSegments));
+                    : string.Format("{2} at {1} from {0}",
+                        project, tree, string.Join("/", model.PathSegments));
 
                 Browse();
                 return View(model);

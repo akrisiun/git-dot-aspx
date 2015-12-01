@@ -28,7 +28,7 @@ namespace GitAspx.Controllers
     using StructureMap;
     using System.Web;
     using System.IO;
-    // using System.Configuration;
+    using System.Threading;
 
     public class DirectoryListController : Controller
     {
@@ -50,9 +50,10 @@ namespace GitAspx.Controllers
                 var model = new DirectoryListViewModel
                   {
                       RepositoriesDirectory = repositories.GetRepositoriesDirectory().FullName,
-                      Repositories = repositories.GetAllRepositories().Select(x => new RepositoryViewModel(x))
+                      Repositories = repositories.GetAllRepositories(null, null)
+                        .Select(x => new RepositoryViewModel(x))
                   };
-                var view = controller.Index();
+                var view = controller.Index(null, null);
 
                 var baseCtx = context.Request.RequestContext.HttpContext as HttpContextBase;
                 var routeData = new System.Web.Routing.RouteData();

@@ -18,6 +18,8 @@
 
 #endregion
 
+using System;
+using System.Text;
 using GitAspx.Lib;
 using GitAspx.ViewModels;
 using GitSharp;
@@ -32,7 +34,16 @@ namespace GitAspx.Controllers
         {
             Leaf loLeaf = null;
             if (Model.PathSegments.Length > 0)
-                loLeaf = Model.RootTree[string.Join("/", Model.PathSegments)] as Leaf;
+            {
+                var path = string.Join("/", Model.PathSegments);
+                if (path.EndsWith(".cs.html"))
+                    path = path.Replace(".html", string.Empty);
+
+                loLeaf = Model.RootTree[path] as Leaf;
+            }
+            //if (loLeaf != null && loLeaf.Name.EndsWith(".cs.html"))
+            //    loLeaf.ClearPath(".html");
+
             Model.File = loLeaf;
         }
     }
