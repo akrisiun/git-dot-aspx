@@ -5,23 +5,35 @@
 }
 
 <div class="repositoryContainer">
-    <h1>@Model.RepositoriesDirectory</h1>
+    <h1>
+        @Model.RepositoriesDirectory
+    </h1>
 
     <a href="javascript:void(0)" class="createRepository">Create a new bare repository</a>
     <div class="clear"></div>
 
-    <div class="hint">Right Click To Show Git Url</div>
+    <div class="hint">
+        @*Right Click To Show Git Url*@
+    </div>
     <ul id="repositories">
         @foreach (var repository in Model.Repositories)
         {
-            <li>
-                <a class="repository" 
-                   href="@Url.Content("~/" + repository.FullName)" 
-                   title="@Url.GetGitUrl(repository.FullName)">
-                    @repository.Name
-                    <span class="latest-commit">@repository.LatestCommitInfo</span>
-                </a>
-            </li>
+            <nobr>
+                <span class="clone">
+                    <a class="repositoryClone"
+                       href="javascript:void(0)"
+                       title="@Url.GetGitUrl(repository.FullName)">
+                        @(repository.FullName + ".git")
+                    </a>
+                </span>
+                <li>
+                    <a class="repository"
+                       href="@Url.Content("~/" + repository.FullName)">
+                        @repository.Name
+                        <span class="latest-commit">@repository.LatestCommitInfo</span>
+                    </a>
+                </li>
+            </nobr>
         }
     </ul>
 
@@ -62,7 +74,7 @@
             $(this).select();
         });
 
-        $('a.repository').click(function () {
+        $('a.repositoryClone').click(function () {
             var url = $(this).attr('title');
             $('#dialog').jqmShow();
             $('#repository-url').val(url).focus().select();

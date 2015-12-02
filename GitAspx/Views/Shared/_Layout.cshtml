@@ -4,10 +4,10 @@
 <html>
 <head>
     <title>@ViewBag.Title - GitAspx</title>
-	<link rel="Stylesheet" type="text/css" href="@Url.Content("~/Content/Site.css")" />
-	<!--[if IE 7]> <style type="text/css">@@import "@Url.Content("~/Content/IE7-override.css")";</style> <![endif]-->
-	<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"></script>
-	<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.modal.js")"></script>
+    <link rel="Stylesheet" type="text/css" href="@Url.Content("~/Content/Site.css")" />
+    <!--[if IE 7]> <style type="text/css">@@import "@Url.Content("~/Content/IE7-override.css")";</style> <![endif]-->
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.modal.js")"></script>
 </head>
 <body>
     <div>
@@ -19,9 +19,9 @@
             //]]> -->
         </script>
         @RenderBody()
-		
+
         <div id="footer">
-			<a href="http://github.com/linquize/git-dot-aspx">Powered by GitAspx @Helpers.Version</a>,
+            <a href="http://github.com/linquize/git-dot-aspx">Powered by GitAspx @Helpers.Version</a>,
             <a href="http://github.com/linquize/GitSharp">GitSharp @Helpers.GitDllVersion</a>,
             <a href="http://github.com/linquize/GitSharp">GitSharp.Core @Helpers.GitCoreDllVersion</a>
             @{var loModel = Model as WebBrowsingBaseViewModel;}
@@ -33,11 +33,11 @@
                 }
                 @((DateTime.Now - loModel.CtorTime).TotalMilliseconds.ToString("F1") + " ms")
             }
-		</div>
-        <div style="display: none">
-            @Environment.OSVersion, CLR @Environment.Version, 
-            @(Environment.Is64BitOperatingSystem ? "64-bit edition" : "32-bit edition"), 
-            @(Environment.Is64BitProcess ? "64-bit mode" : "32-bit mode")
+            <div>
+                @Environment.OSVersion, CLR @Environment.Version,
+                @(Environment.Is64BitOperatingSystem ? "64-bit edition" : "32-bit edition"),
+                @(Environment.Is64BitProcess ? "64-bit mode" : "32-bit mode")
+            </div>
         </div>
     </div>
 </body>

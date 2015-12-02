@@ -5,24 +5,20 @@
     ViewBag.Title = Model.Title;
 }
 
-<div class="switchBar" style="position: absolute">
-    <ul>
-        <li>
-            <a href="javascript:void()">@Resources.Cultures (5)</a>
-            <ul>
-                <li><a href="@Url.Content("~/settings/Culture/en-US")">English</a></li>
-            </ul>
-        </li>
-    </ul>
-</div>
-
 <div class="repositoryContainer">
-    <h1>@Model.Project@Model.PathSegments.JoinLeft(" / ")</h1>
+    <h1>
+        <a href="@Url.Content("~/")">git</a> /
+        <a href="@Url.Content("~/" + Model.Project)">
+            @Model.Project
+        </a>
 
-    <div style="border: 1px solid black; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; overflow: auto">
+        @Url.Segments(Model)
+    </h1>
+
+    <div class="blob-content">
         <table>
             <tr style="vertical-align: top">
-                <td style="font-weight: bold; background-color: white">
+                <td>
                     @for (int lineNum = 1, maxLine = Model.File.Data.SplitLines().Count();
                         lineNum <= maxLine; lineNum++)
                     {
@@ -39,9 +35,7 @@
                         else
                         {
                             <div style="width: 10000px">
-                            @(
-                                new MvcHtmlString(line.ToHtmlWithSpaces())
-                            )
+                                @(new MvcHtmlString(line.ToHtmlWithSpaces()))
                             </div>
                         }
                     }

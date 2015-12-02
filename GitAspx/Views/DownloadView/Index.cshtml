@@ -3,31 +3,36 @@
 @using GitSharp;
 @using ICSharpCode.SharpZipLib.Zip;
 @functions{
-void AddDirectoryToZip(ZipOutputStream aoZipStream, Tree aoTree, string asDirectory) {
-    foreach (Leaf loLeaf in aoTree.Leaves) {
-        ZipEntry loZipEntry = new ZipEntry(asDirectory + loLeaf.Name);
-        aoZipStream.PutNextEntry(loZipEntry);
-        aoZipStream.Write(loLeaf.RawData, 0, loLeaf.RawData.Length);
-        aoZipStream.CloseEntry();
+    void AddDirectoryToZip(ZipOutputStream aoZipStream, Tree aoTree, string asDirectory)
+    {
+        foreach (Leaf loLeaf in aoTree.Leaves)
+        {
+            ZipEntry loZipEntry = new ZipEntry(asDirectory + loLeaf.Name);
+            aoZipStream.PutNextEntry(loZipEntry);
+            aoZipStream.Write(loLeaf.RawData, 0, loLeaf.RawData.Length);
+            aoZipStream.CloseEntry();
+        }
+        foreach (Tree loTree in aoTree.Trees)
+            AddDirectoryToZip(aoZipStream, loTree, asDirectory + loTree.Name + "/");
     }
-    foreach (Tree loTree in aoTree.Trees)
-        AddDirectoryToZip(aoZipStream, loTree, asDirectory + loTree.Name + "/");
-}
 }
 @{
     Response.Clear();
-    if (Model.File != null) {
+    if (Model.File != null)
+    {
         Response.Cache.SetLastModified(Model.File.GetLastCommit().CommitDate.UtcDateTime);
         Response.WriteBinary(Model.File.RawData, "application/" + Path.GetExtension(Model.File.Name));
     }
-    else if (Model.Directory != null) {
+    else if (Model.Directory != null)
+    {
         string lsProject = Model.Project.SplitSlashes_OrEmpty().LastOrDefault();
         string lsBareFileName = (!string.IsNullOrEmpty(Model.Directory.Name) ? Model.Directory.Name : lsProject) + "-" + Model.Commit.ShortHash + "-" + Model.Directory.ShortHash;
         Response.ContentType = "application/x-zip-compressed";
-        Response.AppendHeader("content-disposition", "attachment; filename=" + lsBareFileName+ ".zip");
+        Response.AppendHeader("content-disposition", "attachment; filename=" + lsBareFileName + ".zip");
         Response.Flush();
         string lsZipFile = Path.GetTempFileName();
-        using (ZipOutputStream loZipStream = new ZipOutputStream(File.Create(lsZipFile))) {
+        using (ZipOutputStream loZipStream = new ZipOutputStream(File.Create(lsZipFile)))
+        {
             AddDirectoryToZip(loZipStream, Model.Directory, "");
             loZipStream.Finish();
             loZipStream.Close();
@@ -36,4 +41,4 @@ void AddDirectoryToZip(ZipOutputStream aoZipStream, Tree aoTree, string asDirect
         File.Delete(lsZipFile);
     }
     Response.End();
-  }
+}

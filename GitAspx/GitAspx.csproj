@@ -61,16 +61,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -110,10 +105,7 @@
     <Compile Include="Controllers\WebBrowsingBaseController.cs" />
     <Compile Include="Controllers\DownloadViewController.cs" />
     <Compile Include="Controllers\WebBrowsingSettingsController.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers.cs" />
+    <Compile Include="App_Start\Helpers.cs" />
     <Compile Include="Lib\AppSettings.cs" />
     <Compile Include="Lib\ForbiddenResult.cs" />
     <Compile Include="Lib\WebBrowsingSettings.cs" />
@@ -126,23 +118,13 @@
     <Compile Include="Lib\NGitBasedSimpleRefWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Lib\RepositoryService.cs" />
-    <Compile Include="PrettyDate.cs" />
+    <Compile Include="Lib\PrettyDate.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Resources.zh-TW.Designer.cs">
-      <DependentUpon>Resources.zh-TW.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Properties\Resources.zh-CN.Designer.cs">
-      <DependentUpon>Resources.zh-CN.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Start.cs" />
+    <Compile Include="App_Start\Start.cs" />
     <Compile Include="ViewModels\CatViewModel.cs" />
     <Compile Include="ViewModels\TreeViewModel.cs" />
     <Compile Include="ViewModels\DirectoryListViewModel.cs" />
@@ -174,7 +156,6 @@
     <Content Include="Content\themes\base\jquery.ui.slider.css" />
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
-    <Content Include="Global.asax" />
     <Content Include="PrettyDate.xml" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -231,14 +212,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.zh-TW.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.zh-TW.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.zh-CN.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.zh-CN.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\DirectoryList\Cat.cshtml" />
@@ -246,11 +219,11 @@
   <ItemGroup>
     <ProjectReference Include="..\lib\GitSharp\GitSharp.Core\GitSharp.Core-VS2010.csproj">
       <Project>{C46EDD61-C202-465A-93F1-ADE20A83BB59}</Project>
-      <Name>GitSharp.Core</Name>
+      <Name>GitSharp.Core-VS2010</Name>
     </ProjectReference>
     <ProjectReference Include="..\lib\GitSharp\GitSharp\GitSharp-VS2010.csproj">
       <Project>{7311850F-619A-4241-B09F-157792C75FBA}</Project>
-      <Name>GitSharp</Name>
+      <Name>GitSharp-VS2010</Name>
     </ProjectReference>
     <ProjectReference Include="..\lib\NGit\NGit\NGit.csproj">
       <Project>{E3BFF8B4-189C-496A-A817-7E8B31E22B91}</Project>
