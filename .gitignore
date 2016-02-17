@@ -12,3 +12,6 @@ _ReSharper*
 TestResult.xml
 packages/
 lib/System.Web.*.dll
+[wW]eb.config
+
+*.zip
