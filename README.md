@@ -5,6 +5,13 @@ MVC 5.2.3 version
 
 GIT_SSL_NO_VERIFY=true git clone https://github...
 
+[submodule "lib/GitSharp"]
+	path = lib/GitSharp
+	url = https://github.com/linquize/GitSharp.git
+[submodule "lib/NGit"]
+	path = lib/NGit
+	url = https://github.com/linquize/ngit.git
+
 
 ### Original documentation:
 

@@ -60,7 +60,6 @@
       <HintPath>..\lib\structuremap\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ComponentModel.DataAnnotations">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -217,20 +216,20 @@
     <Content Include="Views\DirectoryList\Cat.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\lib\GitSharp\GitSharp.Core\GitSharp.Core-VS2010.csproj">
-      <Project>{C46EDD61-C202-465A-93F1-ADE20A83BB59}</Project>
-      <Name>GitSharp.Core-VS2010</Name>
+    <ProjectReference Include="..\lib\GitSharp\GitSharp.Core\GitSharp.Core.csproj">
+      <Project>{c46edd61-c202-465a-93f1-ade20a83bb59}</Project>
+      <Name>GitSharp.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\lib\GitSharp\GitSharp\GitSharp-VS2010.csproj">
-      <Project>{7311850F-619A-4241-B09F-157792C75FBA}</Project>
-      <Name>GitSharp-VS2010</Name>
+    <ProjectReference Include="..\lib\GitSharp\GitSharp\GitSharp.csproj">
+      <Project>{7311850f-619a-4241-b09f-157792c75fba}</Project>
+      <Name>GitSharp</Name>
     </ProjectReference>
     <ProjectReference Include="..\lib\NGit\NGit\NGit.csproj">
-      <Project>{E3BFF8B4-189C-496A-A817-7E8B31E22B91}</Project>
+      <Project>{e3bff8b4-189c-496a-a817-7e8b31e22b91}</Project>
       <Name>NGit</Name>
     </ProjectReference>
     <ProjectReference Include="..\lib\NGit\Sharpen\Sharpen.csproj">
-      <Project>{72944A6C-45FF-4EF8-B349-8C9CABF519D4}</Project>
+      <Project>{72944a6c-45ff-4ef8-b349-8c9cabf519d4}</Project>
       <Name>Sharpen</Name>
     </ProjectReference>
     <ProjectReference Include="..\MvcHttp\MvcHttp.csproj">
