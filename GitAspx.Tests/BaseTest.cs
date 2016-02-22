@@ -25,6 +25,21 @@ namespace GitAspx.Tests {
 	using System.Xml.Linq;
 	using CassiniDev;
 	using NUnit.Framework;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    [TestClass]
+    public class VSTest { 
+
+        [TestMethod]
+        public void VS1()
+        {
+            var t = new MainTests();
+            t.TestFixtureSetup();
+            t.Gets_receive_pack_advertisement();
+
+            t.TestFixtureTeardown();
+        }
+    }
 
 	[TestFixture]
 	public class BaseTest : CassiniDevServer {
@@ -39,7 +54,7 @@ namespace GitAspx.Tests {
 		[TestFixtureTearDown]
 		public void TestFixtureTeardown() {
 			StopServer();
-			ChangeRepo("C:\\Repositories");
+			ChangeRepo("D:\\Data\\Git");
 		}
 
 		void ChangeRepo(string repoDir) {

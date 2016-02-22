@@ -52,10 +52,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\SharpZipLib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\lib\structuremap\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ComponentModel.DataAnnotations">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -66,11 +71,23 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\System.Web.Helpers.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -200,36 +217,20 @@
     <Content Include="Views\DirectoryList\Cat.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Mvc\src\System.Web.Mvc\System.Web.Mvc.csproj">
-      <Project>{3d3ffd8a-624d-4e9b-954b-e1c105507975}</Project>
-      <Name>System.Web.Mvc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Mvc\src\System.Web.WebPages.Razor\System.Web.WebPages.Razor.csproj">
-      <Project>{0939b11a-fe4e-4ba1-8ad6-d97741ee314f}</Project>
-      <Name>System.Web.WebPages.Razor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Mvc\src\System.Web.WebPages\System.Web.WebPages.csproj">
-      <Project>{76efa9c5-8d7e-4fdf-b710-e20f8b6b00d2}</Project>
-      <Name>System.Web.WebPages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Mvc\vendor\Microsoft.Web.Infrastructure\Microsoft.Web.Infrastructure.csproj">
-      <Project>{50dc9191-2d18-4edb-a929-4ecab7981a1c}</Project>
-      <Name>Microsoft.Web.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\lib\GitSharp\GitSharp.Core\GitSharp.Core.csproj">
-      <Project>{c46edd61-c202-465a-93f1-ade20a83bb59}</Project>
-      <Name>GitSharp.Core</Name>
+      <Project>{C46EDD61-C202-465A-93F1-ADE20A83BB59}</Project>
+      <Name>GitSharp.Core-VS2010</Name>
     </ProjectReference>
     <ProjectReference Include="..\lib\GitSharp\GitSharp\GitSharp.csproj">
-      <Project>{7311850f-619a-4241-b09f-157792c75fba}</Project>
-      <Name>GitSharp</Name>
+      <Project>{7311850F-619A-4241-B09F-157792C75FBA}</Project>
+      <Name>GitSharp-VS2010</Name>
     </ProjectReference>
     <ProjectReference Include="..\lib\NGit\NGit\NGit.csproj">
-      <Project>{e3bff8b4-189c-496a-a817-7e8b31e22b91}</Project>
+      <Project>{E3BFF8B4-189C-496A-A817-7E8B31E22B91}</Project>
       <Name>NGit</Name>
     </ProjectReference>
     <ProjectReference Include="..\lib\NGit\Sharpen\Sharpen.csproj">
-      <Project>{72944a6c-45ff-4ef8-b349-8c9cabf519d4}</Project>
+      <Project>{72944A6C-45FF-4EF8-B349-8C9CABF519D4}</Project>
       <Name>Sharpen</Name>
     </ProjectReference>
     <ProjectReference Include="..\MvcHttp\MvcHttp.csproj">
@@ -241,9 +242,7 @@
     <Content Include="Views\TreeView\EmptyRepository.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Debug.config">
