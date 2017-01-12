@@ -376,12 +376,12 @@ namespace AiLib.Web
 
         public virtual void PageTopCss(UrlHelper url, TextWriter output)
         {
-            var rootCss = "~/css/";
-            MvcBundle.WriteCssHref(output, url, "pagetopx.css", rootCss);
-            output.Write(Environment.NewLine);
+            //var rootCss = "~/css/";
+            //MvcBundle.WriteCssHref(output, url, "pagetopx.css", rootCss);
+            //output.Write(Environment.NewLine);
 
-            MvcBundle.WriteCssHref(output, url, "detailx.css", rootCss);
-            output.Write(Environment.NewLine);
+            //MvcBundle.WriteCssHref(output, url, "detailx.css", rootCss);
+            //output.Write(Environment.NewLine);
         }
 
         public virtual XElement PageTopXml

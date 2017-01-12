@@ -1,19 +1,15 @@
 This is a simple implementation of git-http-backend written in ASP.NET 
 that can be used to read/write git repositories on Windows with IIS.
 
+
 MVC 5.2.3 version
 
 GIT_SSL_NO_VERIFY=true git clone https://github...
 
-[submodule "lib/GitSharp"]
-	path = lib/GitSharp
-	url = https://github.com/linquize/GitSharp.git
-[submodule "lib/NGit"]
-	path = lib/NGit
-	url = https://github.com/linquize/ngit.git
-
 
 ### Original documentation:
+
+https://github.com/linquize/git-dot-aspx.git
 
 Inspired by Grack (http://github.com/schacon/grack)
 

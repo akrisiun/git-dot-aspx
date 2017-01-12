@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.WebPages;
 
@@ -9,7 +10,12 @@ namespace RazorGenerator.Mvc
 {
     public class PrecompiledMvcView : IView
     {
-        private static Lazy<Action<WebViewPage, string>> _overriddenLayoutSetter = new Lazy<Action<WebViewPage, string>>(() => CreateOverriddenLayoutSetterDelegate());
+        static PrecompiledMvcView()
+        {
+            _overriddenLayoutSetter = new Lazy<Action<WebViewPage, string>>(() => CreateOverriddenLayoutSetterDelegate());
+        }
+
+        private static Lazy<Action<WebViewPage, string>> _overriddenLayoutSetter;
         #region ctor, properties
 
         private readonly Type _type;
@@ -115,5 +121,18 @@ namespace RazorGenerator.Mvc
 
             return (Action<WebViewPage, string>)Delegate.CreateDelegate(typeof(Action<WebViewPage, string>), setter, throwOnBindFailure: true);
         }
+
+        
+        public virtual Task RenderAsync(ViewContext viewContext, TextWriter writer)
+        {
+            var task = Task.Factory.StartNew(() => this.Render(viewContext, writer));
+            return task;
+        }
+
+        /* netcore: public virtual Task RenderAsync(ViewContext context);
+            _bufferScope = context.HttpContext.RequestServices.GetRequiredService<IViewBufferScope>();
+            var bodyWriter = await RenderPageAsync(RazorPage, context, invokeViewStarts: true);
+            await RenderLayoutAsync(context, bodyWriter);
+        */
     }
 }
