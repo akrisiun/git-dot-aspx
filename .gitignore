@@ -18,3 +18,4 @@ lib/System.Web.*.dll
 [wW]eb.config
 *.zip
 .vs*/
+*.nupkg
